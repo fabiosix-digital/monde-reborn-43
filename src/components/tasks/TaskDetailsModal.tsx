@@ -20,8 +20,11 @@ import {
   X,
   Save,
   Calendar,
+  User,
 } from "lucide-react";
-import { Task, TaskHistoric, UpdateTaskData } from "@/types/api";
+import { PersonSelector } from "@/components/PersonSelector";
+import { CompactPersonModal } from "@/components/modals/CompactPersonModal";
+import { Task, TaskHistoric, UpdateTaskData, CreatePersonData } from "@/types/api";
 import { useTaskRelationshipsOptimized } from "@/hooks/useTaskRelationshipsOptimized";
 import { useTaskHistorics } from "@/hooks/useTaskHistorics";
 import { usePeopleInfinite } from "@/hooks/usePeopleInfinite";
@@ -51,6 +54,7 @@ export function TaskDetailsModal({
   const [selectedPersonId, setSelectedPersonId] = useState<string>("none");
   const [selectedAssigneeId, setSelectedAssigneeId] = useState<string>("none");
   const [editedDueDate, setEditedDueDate] = useState<string>("");
+  const [isClientModalOpen, setIsClientModalOpen] = useState(false);
 
   // Task manager hook
   const { updateTaskStatus, updateTaskMutation } = useTaskManager();
