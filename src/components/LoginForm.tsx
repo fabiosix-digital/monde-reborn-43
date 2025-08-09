@@ -69,7 +69,7 @@ export default function LoginForm() {
               })} required className="transition-all duration-300 focus:ring-2 focus:ring-primary/20" />
               </div>
 
-              <Button type="submit" className="w-full" variant="hero" size="lg" disabled={loading}>
+              <Button type="submit" className="w-full" variant="default" size="lg" disabled={loading}>
                 {loading ? <>
                     <Loader2 className="w-4 h-4 animate-spin" />
                     Entrando...
