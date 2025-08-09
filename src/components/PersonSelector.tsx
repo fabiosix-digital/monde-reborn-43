@@ -42,14 +42,7 @@ export function PersonSelector({
     pageSize: 50
   });
   const selectedPerson = people.find(p => p.id === value);
-  // Garantir exibição do selecionado mesmo fora da lista atual
-  const { data: selectedPersonResp } = useQuery({
-    queryKey: ["person-by-id", value],
-    queryFn: () => api.getPerson(value!),
-    enabled: !!value && !selectedPerson,
-    staleTime: 5 * 60 * 1000,
-  });
-  const selected = selectedPerson || selectedPersonResp?.data;
+
   const handleCreatePerson = async (data: CreatePersonData) => {
     try {
       // Garantir que o tipo correto seja definido antes de salvar
@@ -101,14 +94,14 @@ export function PersonSelector({
               className="w-full justify-between"
               disabled={disabled}
             >
-              {selected ? (
+              {selectedPerson ? (
                 <div className="flex items-center gap-2">
-                  {selected.attributes.kind === "individual" ? (
+                  {selectedPerson.attributes.kind === "individual" ? (
                     <User className="h-4 w-4" />
                   ) : (
                     <Building className="h-4 w-4" />
                   )}
-                  <span className="truncate">{selected.attributes.name}</span>
+                  <span className="truncate">{selectedPerson.attributes.name}</span>
                 </div>
               ) : (
                 placeholder
@@ -116,7 +109,7 @@ export function PersonSelector({
               <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
             </Button>
           </PopoverTrigger>
-          <PopoverContent className="w-full p-0 z-50 bg-popover" align="start">
+          <PopoverContent className="w-full p-0" align="start">
             <Command>
               <CommandInput 
                 placeholder="Digite para buscar cliente..."
